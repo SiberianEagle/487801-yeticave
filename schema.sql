@@ -12,7 +12,7 @@ CREATE TABLE users (
     email CHAR(128) NOT NULL,
     name CHAR(50) NOT NULL,
     password CHAR(50) NOT NULL,
-    avatar CHAR,
+    avatar CHAR(128),
     contact_info CHAR(50) NOT NULL
 )
 
@@ -23,7 +23,7 @@ CREATE TABLE lots (
     id_category INT,
     title CHAR(30) NOT NULL,
     discription CHAR(255),
-    picture CHAR NOT NULL,
+    picture CHAR(128) NOT NULL,
     start_price INT NOT NULL,
     finish_date DATE NOT NULL,
     bet_step INT
@@ -39,5 +39,5 @@ CREATE TABLE bets (
 
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title CHAR NOT NULL
+    title CHAR(128) NOT NULL
 )
