@@ -29,7 +29,7 @@
                             <span class="lot__cost"><?=price_correct($value['Цена']);?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                            <?=$offer_end ?>
                         </div>
                     </div>
                 </div>
