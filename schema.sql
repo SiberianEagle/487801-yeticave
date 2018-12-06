@@ -25,12 +25,13 @@ CREATE TABLE lots (
     discription CHAR(255),
     picture CHAR(128) NOT NULL,
     start_price INT NOT NULL,
+    final_price INT NOT NULL,
     finish_date DATE NOT NULL,
     bet_step INT
 )
 
 CREATE TABLE bets (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,         //id_user,id_lot, date, sum
     id_user INT,
     id_lot INT,
     date DATE NOT NULL,
