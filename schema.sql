@@ -20,10 +20,10 @@ CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
     id_winner INT,
-    id_category INT,
+    id_category INT,                             
     title CHAR(30) NOT NULL,
     discription CHAR(255),
-    picture CHAR(128) NOT NULL,
+    picture TEXT NOT NULL,
     start_price INT NOT NULL,
     finish_date DATE NOT NULL,
     bet_step INT
