@@ -21,7 +21,7 @@ CREATE TABLE lots (
     id_user INT,
     id_winner INT,
     id_category INT,
-    title CHAR(30) NOT NULL,
+    title CHAR(255) NOT NULL,
     discription CHAR(255),
     picture CHAR(128) NOT NULL,
     start_price INT NOT NULL,
