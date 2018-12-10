@@ -18,23 +18,14 @@ CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
     id_winner INT,
-<<<<<<< HEAD
-<<<<<<< HEAD
     id_category INT,                             
     title CHAR(30) NOT NULL,
     discription CHAR(255),
     picture TEXT NOT NULL,
-=======
-=======
->>>>>>> b8b2b15865f697676286fd25cede81ef05550e02
     id_category INT,
     title CHAR(255) NOT NULL,
     discription TEXT,
     picture CHAR(128) NOT NULL,
-<<<<<<< HEAD
->>>>>>> module4-task2
-=======
->>>>>>> b8b2b15865f697676286fd25cede81ef05550e02
     start_price INT NOT NULL,
     final_price INT NOT NULL,
     finish_date TIMESTAMP NOT NULL,
