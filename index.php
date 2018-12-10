@@ -8,10 +8,10 @@ $user_avatar = 'img/user.jpg';
 $offer_end = $time_to_off("tomorrow midnight");
 
 $page_content = include_template( 'index.php',
-  ['categories' => $categories,
-   'items' => $items,
-   'offer_end' => $offer_end
-  ]);
+   ['categories' => $categories,
+    'items' => $items,
+    'offer_end' => $offer_end
+   ]);
 
 $layout_content = include_template('layout.php', 
 	[
