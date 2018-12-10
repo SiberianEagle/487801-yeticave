@@ -6,7 +6,7 @@ require_once 'timer_function.php';
 $is_auth = rand(0, 1);
 $user_name = 'Сергей Орлов';
 $user_avatar = 'img/user.jpg';
-$offer_end = $time_to_off("tomorrow midnight");
+$offer_end = time_to_off("tomorrow midnight");
 
 $page_content = include_template( 'index.php', ['categories' => $categories, 'items' => $items , 'offer_end' => $offer_end] );
 
