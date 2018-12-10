@@ -1,24 +1,32 @@
 /*ниже шесть запросов для добавления в БД категорий*/
 INSERT INTO categories 
-(title) VALUES ('Доски и лыжи');
-INSERT INTO categories 
-(title) VALUES ('Крепления');
-INSERT INTO categories 
-(title) VALUES ('Ботинки');
-INSERT INTO categories 
-(title) VALUES ('Одежда');
-INSERT INTO categories 
-(title) VALUES ('Инструмент');
-INSERT INTO categories 
-(title) VALUES ('Разное');
+(title) VALUES 
+('Доски и лыжи'),
+('Крепления'),
+('Ботинки'),
+('Одежда'),
+('Инструмент'),
+('Разное');
 
 /*ниже два запроса для добавления в БД пользователей*/
 INSERT INTO users 
-(reg_date, email, name, password, avatar, contact_info)
- VALUES ('2018-12-01', 'rick@mail.ru', 'Рик Санчез', 'UnityOneLove', 'http://rickandmorty.cn-fan.ru/seasons/203_big.jpg', 'sendToNull@mail.ru');
-INSERT INTO users 
-(reg_date, email, name, password, avatar, contact_info)
- VALUES ('2018-12-02', 'morty@mail.ru', 'Морти Смит', 'theBestOfAllMorty', 'http://2x2tv.ru/upload/iblock/6be/6bea027c0d3496e3d75afb9102d4e9d8.jpg', 'rickIsFool@mail.ru');
+(email, name, password, avatar, contact_info)
+ VALUES 
+ ( 
+   'rick@mail.ru',
+   'Рик Санчез',
+   'UnityOneLove',
+   'http://rickandmorty.cn-fan.ru/seasons/203_big.jpg',
+   'sendToNull@mail.ru' 
+ ),
+ (
+   '2017-05-05',
+   'morty@mail.ru',
+   'Морти Смит',
+   'theBestOfAllMorty',
+   'http://2x2tv.ru/upload/iblock/6be/6bea027c0d3496e3d75afb9102d4e9d8.jpg',
+   'rickIsFool@mail.ru'
+ )
 
 /*ниже 6 запросов для добавления в БД объявлений*/
  INSERT INTO lots
@@ -31,11 +39,9 @@ INSERT INTO users
   'img/lot-1.jpg',
   '10999',
   '10999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '2018-12-31'
+  ),
+  (
   '2',
   '1',
   'DC Ply Mens 2016/2017 Snowboard',
@@ -43,11 +49,9 @@ INSERT INTO users
   'img/lot-2.jpg',
   '159999',
   '159999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '2018-12-31'
+  ),
+  (
   '1',
   '2',
   'Крепления Union Contact Pro 2015 года размер L/XL',
@@ -55,11 +59,9 @@ INSERT INTO users
   'img/lot-3.jpg',
   '8000',
   '8000',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '2018-12-31'
+  ),
+  (
   '2',
   '3',
   'Ботинки для сноуборда DC Mutiny Charocal',
@@ -67,11 +69,9 @@ INSERT INTO users
   'img/lot-4.jpg',
   '10999',
   '10999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-  (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '2018-12-31'
+  ),
+  (
   '1',
   '4',
   'Куртка для сноуборда DC Mutiny Charocal',
@@ -79,11 +79,9 @@ INSERT INTO users
   'img/lot-5.jpg',
   '7500',
   '7500',
-  '0001-01-01'
-  );
-INSERT INTO lots
-  (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '2018-12-31'
+  ),
+  (
   '2',
   '6',
   'Маска Oakley Canopy',
@@ -91,24 +89,22 @@ INSERT INTO lots
   'img/lot-6.jpg',
   '5400',
   '5400',
-  '0001-01-01'
+  '2018-12-31'
   );
 
 /*ниже два запроса для добавления в БД ставок*/
 INSERT INTO bets
-  (id_user,id_lot, date, sum)
+  (id_user,id_lot, sum)
  VALUES (
   '1',
   '1',
-  '0001-01-01',
   '13000'
   );
 INSERT INTO bets
-  (id_user,id_lot, date, sum)
+  (id_user,id_lot,sum)
  VALUES (
   '2',
   '3',
-  '0001-01-01',
   '9000'
   );
 
@@ -116,19 +112,19 @@ INSERT INTO bets
 SELECT * FROM categories;
 
 /*запрос на получение открытых лотов*/
-SELECT l.title, start_price, picture, final_price, c.title
-FROM lots l
-INNER JOIN categories c ON l.id_category = c.id;
+SELECT lots.title, start_price, picture, final_price, categories.title
+FROM lots
+INNER JOIN categories ON lots.id_category = categories.id;
 
 /*запрос на показ лота по id и отдельного показа его категории*/
 SELECT * FROM lots WHERE id = 5;
-SELECT c.title FROM lots l
-INNER JOIN categories c ON l.id_category = c.id WHERE l.id = 5;
+SELECT categories.title FROM lots
+INNER JOIN categories ON lots.id_category = categories.id WHERE lots.id = 5;
 
 /*запрос на измение названия лота по id*/
 UPDATE lots SET title = 'Самая чёткая доска' WHERE id = 1;
 
 /*запрос на получение самых свежих ставок для лота по его идентификатору*/
-SELECT sum FROM bets b
-INNER JOIN lots l ON b.id_lot = l.id WHERE l.id = 3;
+SELECT sum FROM bets
+INNER JOIN lots ON bets.id_lot = lots.id WHERE lots.id = 3;
 
