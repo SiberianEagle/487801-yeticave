@@ -1,15 +1,11 @@
 <?php
 
-$time_to_off = function($off){
-
-    $present_time = time();
+function time_to_off($off)
+{
     $future_time = strtotime($off);
-    $time_diff = $future_time - $present_time;
-    $days_off = floor($time_diff / 86400);
-    $time_off = floor($time_diff/3600).':'.floor( ($time_diff%3600) / 60) ;
-    if ($days_off>0){
-    	return $days_off.'дн.';
-    };
+    $present_time = time();
+    $time_off = date("H:i", $future_time - $present_time);
     return $time_off;
-};
+}
+
 ?>
