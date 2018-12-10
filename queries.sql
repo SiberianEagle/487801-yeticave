@@ -1,24 +1,33 @@
 /*ниже шесть запросов для добавления в БД категорий*/
 INSERT INTO categories 
-(title) VALUES ('Доски и лыжи');
-INSERT INTO categories 
-(title) VALUES ('Крепления');
-INSERT INTO categories 
-(title) VALUES ('Ботинки');
-INSERT INTO categories 
-(title) VALUES ('Одежда');
-INSERT INTO categories 
-(title) VALUES ('Инструмент');
-INSERT INTO categories 
-(title) VALUES ('Разное');
+(title) VALUES 
+('Доски и лыжи'),
+('Крепления'),
+('Ботинки'),
+('Одежда'),
+('Инструмент'),
+('Разное');
 
 /*ниже два запроса для добавления в БД пользователей*/
 INSERT INTO users 
-(reg_date, email, name, password, avatar, contact_info)
- VALUES ('2018-12-01', 'rick@mail.ru', 'Рик Санчез', 'UnityOneLove', 'http://rickandmorty.cn-fan.ru/seasons/203_big.jpg', 'sendToNull@mail.ru');
-INSERT INTO users 
-(reg_date, email, name, password, avatar, contact_info)
- VALUES ('2018-12-02', 'morty@mail.ru', 'Морти Смит', 'theBestOfAllMorty', 'http://2x2tv.ru/upload/iblock/6be/6bea027c0d3496e3d75afb9102d4e9d8.jpg', 'rickIsFool@mail.ru');
+(reg_date,email, name, password, avatar, contact_info)
+ VALUES 
+ ( 
+   '2017-05-05',
+   'rick@mail.ru',
+   'Рик Санчез',
+   'UnityOneLove',
+   'http://rickandmorty.cn-fan.ru/seasons/203_big.jpg',
+   'sendToNull@mail.ru' 
+ ),
+ (
+   '2017-05-05',
+   'morty@mail.ru',
+   'Морти Смит',
+   'theBestOfAllMorty',
+   'http://2x2tv.ru/upload/iblock/6be/6bea027c0d3496e3d75afb9102d4e9d8.jpg',
+   'rickIsFool@mail.ru'
+ )
 
 /*ниже 6 запросов для добавления в БД объявлений*/
  INSERT INTO lots
@@ -31,11 +40,9 @@ INSERT INTO users
   'img/lot-1.jpg',
   '10999',
   '10999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '1545071795' 
+  ),
+  (
   '2',
   '1',
   'DC Ply Mens 2016/2017 Snowboard',
@@ -43,11 +50,9 @@ INSERT INTO users
   'img/lot-2.jpg',
   '159999',
   '159999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '1545071795'
+  ),
+  (
   '1',
   '2',
   'Крепления Union Contact Pro 2015 года размер L/XL',
@@ -55,11 +60,9 @@ INSERT INTO users
   'img/lot-3.jpg',
   '8000',
   '8000',
-  '0001-01-01'
-  );
- INSERT INTO lots
-   (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '1545071795'
+  ),
+  (
   '2',
   '3',
   'Ботинки для сноуборда DC Mutiny Charocal',
@@ -67,11 +70,9 @@ INSERT INTO users
   'img/lot-4.jpg',
   '10999',
   '10999',
-  '0001-01-01'
-  );
- INSERT INTO lots
-  (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '1545071795'
+  ),
+  (
   '1',
   '4',
   'Куртка для сноуборда DC Mutiny Charocal',
@@ -79,11 +80,9 @@ INSERT INTO users
   'img/lot-5.jpg',
   '7500',
   '7500',
-  '0001-01-01'
-  );
-INSERT INTO lots
-  (id_user,id_category,title,discription,picture,start_price,final_price,finish_date)
- VALUES (
+  '1545071795'
+  ),
+  (
   '2',
   '6',
   'Маска Oakley Canopy',
@@ -91,24 +90,22 @@ INSERT INTO lots
   'img/lot-6.jpg',
   '5400',
   '5400',
-  '0001-01-01'
+  '1545071795'
   );
 
 /*ниже два запроса для добавления в БД ставок*/
 INSERT INTO bets
-  (id_user,id_lot, date, sum)
+  (id_user,id_lot, sum)
  VALUES (
   '1',
   '1',
-  '0001-01-01',
   '13000'
   );
 INSERT INTO bets
-  (id_user,id_lot, date, sum)
+  (id_user,id_lot,sum)
  VALUES (
   '2',
   '3',
-  '0001-01-01',
   '9000'
   );
 
