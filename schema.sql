@@ -6,9 +6,7 @@ CREATE DATABASE yeticave
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_lot INT,
-    id_bet INT,
-    reg_date DATE NOT NULL,
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     email CHAR(128) NOT NULL,
     name CHAR(50) NOT NULL,
     password CHAR(50) NOT NULL,
@@ -26,7 +24,7 @@ CREATE TABLE lots (
     picture CHAR(128) NOT NULL,
     start_price INT NOT NULL,
     final_price INT NOT NULL,
-    finish_date DATE NOT NULL,
+    finish_date TIMESTAMP NOT NULL,
     bet_step INT
 )
 
@@ -34,7 +32,7 @@ CREATE TABLE bets (
     id INT AUTO_INCREMENT PRIMARY KEY,       
     id_user INT,
     id_lot INT,
-    date DATE NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     sum INT NOT NULL
 )
 
