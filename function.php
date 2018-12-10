@@ -17,4 +17,12 @@ function include_template($name, $data) {
     return $result;
 }
 
+function price_correct($price){
+    $roundprice = ceil($price);
+    if ($roundprice >= 1000) {
+        $roundprice = number_format($roundprice, 0, ',', ' ');
+    } 
+        return $roundprice."₽";
+};
+
 ?>
