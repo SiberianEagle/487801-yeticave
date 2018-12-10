@@ -10,10 +10,9 @@ INSERT INTO categories
 
 /*ниже два запроса для добавления в БД пользователей*/
 INSERT INTO users 
-(reg_date,email, name, password, avatar, contact_info)
+(email, name, password, avatar, contact_info)
  VALUES 
  ( 
-   '2017-05-05',
    'rick@mail.ru',
    'Рик Санчез',
    'UnityOneLove',
@@ -40,7 +39,7 @@ INSERT INTO users
   'img/lot-1.jpg',
   '10999',
   '10999',
-  '1545071795' 
+  '2018-12-31'
   ),
   (
   '2',
@@ -50,7 +49,7 @@ INSERT INTO users
   'img/lot-2.jpg',
   '159999',
   '159999',
-  '1545071795'
+  '2018-12-31'
   ),
   (
   '1',
@@ -60,7 +59,7 @@ INSERT INTO users
   'img/lot-3.jpg',
   '8000',
   '8000',
-  '1545071795'
+  '2018-12-31'
   ),
   (
   '2',
@@ -70,7 +69,7 @@ INSERT INTO users
   'img/lot-4.jpg',
   '10999',
   '10999',
-  '1545071795'
+  '2018-12-31'
   ),
   (
   '1',
@@ -80,7 +79,7 @@ INSERT INTO users
   'img/lot-5.jpg',
   '7500',
   '7500',
-  '1545071795'
+  '2018-12-31'
   ),
   (
   '2',
@@ -90,7 +89,7 @@ INSERT INTO users
   'img/lot-6.jpg',
   '5400',
   '5400',
-  '1545071795'
+  '2018-12-31'
   );
 
 /*ниже два запроса для добавления в БД ставок*/
@@ -113,19 +112,19 @@ INSERT INTO bets
 SELECT * FROM categories;
 
 /*запрос на получение открытых лотов*/
-SELECT l.title, start_price, picture, final_price, c.title
-FROM lots l
-INNER JOIN categories c ON l.id_category = c.id;
+SELECT lots.title, start_price, picture, final_price, categories.title
+FROM lots
+INNER JOIN categories ON lots.id_category = categories.id;
 
 /*запрос на показ лота по id и отдельного показа его категории*/
 SELECT * FROM lots WHERE id = 5;
-SELECT c.title FROM lots l
-INNER JOIN categories c ON l.id_category = c.id WHERE l.id = 5;
+SELECT categories.title FROM lots
+INNER JOIN categories ON lots.id_category = categories.id WHERE lots.id = 5;
 
 /*запрос на измение названия лота по id*/
 UPDATE lots SET title = 'Самая чёткая доска' WHERE id = 1;
 
 /*запрос на получение самых свежих ставок для лота по его идентификатору*/
-SELECT sum FROM bets b
-INNER JOIN lots l ON b.id_lot = l.id WHERE l.id = 3;
+SELECT sum FROM bets
+INNER JOIN lots ON bets.id_lot = lots.id WHERE lots.id = 3;
 
