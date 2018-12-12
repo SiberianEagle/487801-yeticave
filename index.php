@@ -1,4 +1,6 @@
 <?php
+//require_once 'config/db_connect.php';
+
 require_once 'function.php';
 require_once 'arrays.php';
 require_once 'constants.php';
@@ -11,12 +13,6 @@ $page_content = include_template( 'index.php',
  'items' => $items,
  'offer_end' => $offer_end
  ]);
-
-$page_content = include_template( 'index.php',
-   ['categories' => $categories,
-    'items' => $items,
-    'offer_end' => $offer_end
-   ]);
 
 $layout_content = include_template('layout.php', 
 	[
