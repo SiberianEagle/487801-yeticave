@@ -20,7 +20,6 @@ INSERT INTO users
    'sendToNull@mail.ru' 
  ),
  (
-   '2017-05-05',
    'morty@mail.ru',
    'Морти Смит',
    'theBestOfAllMorty',
