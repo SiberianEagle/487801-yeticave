@@ -35,6 +35,4 @@ function time_to_off($off)
     $time_off = date("H:i", $future_time - $present_time);
     return $time_off;
 }
-
-
 ?>
