@@ -25,7 +25,7 @@ function price_correct($price)
     {
          $roundprice = number_format($roundprice, 0, ',', ' ');
     }
-    return $roundprice."₽";
+    return $roundprice;
 }
 
 function time_to_off($off)
