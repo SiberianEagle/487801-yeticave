@@ -7,6 +7,8 @@ CREATE DATABASE yeticave
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_lot INT,
+    id_bet INT,
     email CHAR(128) NOT NULL,
     name CHAR(50) NOT NULL,
     password CHAR(50) NOT NULL,
