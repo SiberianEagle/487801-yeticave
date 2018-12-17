@@ -10,6 +10,7 @@ $categories = getCategories();
 $items = getItems();
 
 
+
 $page_content = include_template( 'index.php',
    ['categories' => $categories,
     'items' => $items,
