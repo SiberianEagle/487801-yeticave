@@ -9,8 +9,8 @@ require_once 'constants.php';
 $is_auth = rand(0, 1);
 $user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
-$categories = db_query($cat, $link);
-$items = db_query($all_items, $link);
+$categories = getCategories();
+$items = getItems();
 
 $page_content = include_template( 'index.php',
     [
