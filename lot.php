@@ -8,17 +8,13 @@ require_once 'constants.php';
 $is_auth = rand(0, 1);
 $user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
-$categories = db_query($cat, $link);
+$categories = getCategories();
 
 if (isset($_GET['id'])) 
 {
 $id = intval($_GET['id']);
-$current_item = "SELECT lots.title, discription, start_price, picture, final_price, bet_step, categories.title
-AS ctitle
-FROM `lots`
-INNER JOIN `categories` ON lots.id_category = categories.id WHERE lots.id = $id";
-$item = db_query($current_item, $link);
-
+$item = getCurrentItem($id);
+  
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,
