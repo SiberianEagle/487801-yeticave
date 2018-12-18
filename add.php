@@ -9,33 +9,49 @@ require_once 'constants.php';
 $is_auth = rand(0, 1);
 $user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
-$categories = db_query($cat, $link);
-
+$categories = getCategories();
+$formValues = [];
 $errors = [];
-$invalid = '';
-if (isset($_POST)){
+if ($_SERVER['REQUEST_METHOD']=='POST'){
     foreach ($_POST as $key => $value) {
-        ${$key} = $value ?? '';
-        if (empty(${$key})){
-            $errors[$key] = "Поле не заполнено";
-        } else{
-            $errors[$key] = '';
-        }
+        $formValues[$key] = $value;
+        if (empty($formValues[$key])){
+            $errors[$key]=1;
+        }  
     }
-    if (count($errors)){
-        $invalid = "form--invalid";
+    if (!ctype_digit($formValues['lot_rate'])){
+            $errors['lot_rate']=1;
+        }
+    if (!ctype_digit($formValues['lot_step'])){
+            $errors['lot_step']=1;
+        }
+    if (!($_FILES['userfile']['error'])){
+        $file_name = $_FILES['userfile']['name'];
+        $file_name = uniqid().'.png';
+        $file_path = __DIR__ . '/img/';
+        $file_url = 'img/' . $file_name;
+        move_uploaded_file($_FILES['userfile']['tmp_name'], $file_path . $file_name);
+    }else{
+        $errors['file']=1;
+    }
+    if(!count($errors)){
+        insertItem(
+             $_POST['category'][0],
+             $_POST['lot_name'],
+             $_POST['message'],
+             $file_url,
+             $_POST['lot_rate'],
+             $_POST['lot_step'],
+             $_POST['lot_date']
+         );
+        $lot_id = getlLastItem();
+        header('Location:lot.php?id='.$lot_id[0]['id']);
     }
 }
-
-var_dump($errors);
 $page_content = include_template('add-lot.php',
     [
     'categories' => $categories,
-    'lot_name' => $lot_name,
-    'message' => $message,
-    'lot_rate' => $lot_rate,
-    'lot_step' => $lot_step,
-    'lot_date' => $lot_date,
+    'formValues' => $formValues,
     'errors' => $errors
     ]);
 
