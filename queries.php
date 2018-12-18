@@ -70,5 +70,27 @@
         $last_item = "SELECT id FROM lots ORDER BY id DESC LIMIT 1";
         return db_query($last_item);
 	}
-  
+
+    function emailCheck($email) 
+	{
+	    $currentEmail = "SELECT * FROM users WHERE email = '$email'";
+        $link = get_connection();
+		$sql_res = mysqli_query($link, $currentEmail);
+	    $count = mysqli_num_rows($sql_res);
+        return $count;
+    }
+
+    function insertUser($email, $name, $password, $avatar, $contact_info)
+	{
+		$insert_item = "INSERT INTO `users`
+       (email,name,password,avatar,contact_info)
+        VALUES (
+        '$email',
+        '$name',
+        '$password',
+        '$avatar',
+        '$contact_info'
+        )";
+		return db_insert($insert_item);
+	}
  ?>
