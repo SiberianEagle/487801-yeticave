@@ -3,7 +3,9 @@
       <ul class="nav__list container">
             <?php foreach ($categories as $key => $value): ?>
             <li class="nav__item">
+
                 <a href="pages/all-lots.html"><?=strip_tags($value['title']); ?></a>
+
             </li>
         <?php endforeach; ?>
         </ul>
@@ -16,12 +18,13 @@
             <img src="<?=$item[0]['picture']; ?>" width="730" height="548" alt="Сноуборд">
           </div>
           <p class="lot-item__category">Категория: <span><?=$item[0]['ctitle']; ?></span></p>
+
           <p class="lot-item__description"><?=strip_tags($item[0]['discription']); ?></p>
         </div>
         <div class="lot-item__right">
 
           <?php if(isset($_SESSION['name'])): ?>
-
+          
           <div class="lot-item__state">
             <div class="lot-item__timer timer">
               <?=$offer_end; ?>
