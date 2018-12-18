@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once 'config/db_connect.php';
+session_start();
 require_once 'function.php';
 require_once 'queries.php';
 require_once 'constants.php';
@@ -14,7 +14,6 @@ if (isset($_GET['id']))
 {
 $id = intval($_GET['id']);
 $item = getCurrentItem($id);
-
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,

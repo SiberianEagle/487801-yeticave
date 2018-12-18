@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         }  
     }
     if (!filter_var($formValues['email'], FILTER_VALIDATE_EMAIL)
-        || emailCheck($formValues['email'])>0)
+        || mysqli_num_rows(emailCheck($formValues['email']))>0)
         {
             $errors['email']=1;
         }

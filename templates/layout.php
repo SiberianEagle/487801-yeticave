@@ -23,21 +23,23 @@
 
         <nav class="user-menu">
 
-        <?php if($is_auth===1): ?>
+        <?php if(isset($_SESSION['name'])): ?>
           <div class="user-menu__image">
-            <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
+            <img src="<?=$_SESSION['avatar']; ?>" width="40" height="40" alt="Пользователь">
           </div>
           <div class="user-menu__logged">
-            <p></p>
+            <p><?=$_SESSION['name']; ?></p>
           </div> 
-
+          <div>
+           <a href="logout.php" class="user-menu__logged" style="color:red; position:relative; top:25px; right:47px">Выход</a>
+          </div>
         <?php else: ?>
           <ul class="user-menu__list">
             <li class="user-menu__item">
-             <a href="#">Регистрация</a>
+             <a href="sign-up.php">Регистрация</a>
             </li>
             <li class="user-menu__item">
-             <a href="#">Вход</a>
+             <a href="login.php">Вход</a>
             </li>
           </ul>
 
