@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 }
 $bets = getBets($id);
 $betsNumber = count($bets);
+
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,
@@ -46,6 +47,7 @@ $layout_content = include_template('layout.php',
     [
     'content' => $page_content,
     'categories' => $categories,
+
     'title' => $item[0]['title']
     ]);
 
