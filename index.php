@@ -20,8 +20,7 @@ $layout_content = include_template('layout.php',
     [
 	'content' => $page_content,
 	'categories' => $categories,
-	'title' => 'Главная страница',
-	'is_auth' => $is_auth
+	'title' => 'Главная страница'
     ]);
 	
 

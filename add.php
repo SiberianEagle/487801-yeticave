@@ -64,8 +64,7 @@ $layout_content = include_template('layout.php',
     [
     'content' => $page_content,
     'categories' => $categories,
-    'title' => 'Добавление лота',
-    'is_auth' => $is_auth
+    'title' => 'Добавление лота'
     ]);
 
 print($layout_content);
