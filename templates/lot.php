@@ -21,7 +21,7 @@
         <div class="lot-item__right">
 
           <?php if(isset($_SESSION['name'])): ?>
-
+          
           <div class="lot-item__state">
             <div class="lot-item__timer timer">
               <?=$offer_end; ?>
@@ -35,6 +35,7 @@
                 Мин. ставка <span><?=$item[0]['bet_step']; ?></span>
               </div>
             </div>
+
             <?php
             $classname = isset($errors['cost']) ? 'form__item--invalid' : '';
             ?>

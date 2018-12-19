@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 session_start();
+
 require_once 'function.php';
 require_once 'queries.php';
 require_once 'constants.php';
@@ -33,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 }
 $bets = getBets($id);
 $betsNumber = count($bets);
+
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,
