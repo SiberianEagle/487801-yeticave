@@ -4,7 +4,6 @@ ini_set('display_errors',1);
 session_start();
 require_once 'function.php';
 require_once 'queries.php';
-require_once 'constants.php';
 
 if(!isset($_SESSION['name']))
 {

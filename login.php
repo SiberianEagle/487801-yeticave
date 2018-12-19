@@ -4,10 +4,7 @@ ini_set('display_errors',1);
 session_start();
 require_once 'function.php';
 require_once 'queries.php';
-require_once 'constants.php';
 
-$is_auth = rand(0, 1);
-$user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $formValues = [];
