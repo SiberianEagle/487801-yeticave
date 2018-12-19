@@ -92,4 +92,24 @@
         )";
 		return db_insert($insert_item);
 	}
+
+	function insertBet($id_user, $id_lot, $sum)
+	{
+		$insert_bet = "INSERT INTO `bets`
+       (id_user,id_lot,sum)
+        VALUES (
+        '$id_user',
+        '$id_lot',
+        '$sum'
+        )";
+		return db_insert($insert_bet);
+	}
+
+	function getBets($id_lot)
+	{
+       $bets = "SELECT users.name AS name, date, sum FROM `bets` 
+       INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 10";
+        return db_query($bets);
+	}
+
  ?>
