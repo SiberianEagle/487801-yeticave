@@ -21,7 +21,7 @@
         <div class="lot-item__right">
 
           <?php if(isset($_SESSION['name'])): ?>
-
+          
           <div class="lot-item__state">
             <div class="lot-item__timer timer">
               <?=$offer_end; ?>
