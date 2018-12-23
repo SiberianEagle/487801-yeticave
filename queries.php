@@ -112,4 +112,19 @@
         return db_query($bets);
 	}
 
+	function sqlSequre($value) 
+	{
+		$link = get_connection();
+		$result = mysqli_real_escape_string($link, $value);
+		return $result;
+	}
+
+	function getFoundLots($value)
+	{
+		$foundLots = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` 
+		     INNER JOIN `categories` ON lots.id_category = categories.id
+		     WHERE MATCH(lots.title, lots.discription) AGAINST ('$value')";
+		return db_query($foundLots);
+	}
+
  ?>
