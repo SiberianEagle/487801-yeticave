@@ -10,10 +10,10 @@
     </nav>
     <div class="container">
       <section class="lots">
-         <?php if(count($foundLots)):?>
+         <?php if(count($foundLotsOnPage)):?>
         <h2>Результаты поиска по запросу «<span><?=$search; ?></span>»</h2>
         <ul class="lots__list">
-           <?php foreach ($foundLots as $key => $value): ?>
+           <?php foreach ($foundLotsOnPage as $key => $value): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?=$value['picture']; ?>" width="350" height="260" alt="">
@@ -41,13 +41,25 @@
         <h2>Ничего не найдено по вашему запросу</h2>
       <?php endif; ?>
       </section>
+      <?php if(isset($pages) && count($pages)>1) :?>
       <ul class="pagination-list">
-        <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
-        <li class="pagination-item pagination-item-active"><a>1</a></li>
-        <li class="pagination-item"><a href="#">2</a></li>
-        <li class="pagination-item"><a href="#">3</a></li>
-        <li class="pagination-item"><a href="#">4</a></li>
-        <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
+        <?php if($cur_page>1): ?>
+          <li class="pagination-item pagination-item-prev">
+            <a href="?search=<?=$search;?>&page=<?=$cur_page-1 ; ?>">Назад</a>
+          </li>
+        <?php endif; ?>
+        <?php foreach ($pages as $page) : ?>
+            <?php $classname = ($cur_page == $page) ? 'pagination-item-active' : ''; ?>
+            <li class="pagination-item <?=$classname; ?>">
+                <a href="?search=<?=$search;?>&page=<?=$page; ?>"><?=$page; ?></a>
+            </li>
+        <?php endforeach; ?>
+        <?php if($cur_page<count($pages)): ?>
+            <li class="pagination-item pagination-item-next">
+                <a href="?search=<?=$search;?>&page=<?=$cur_page+1 ; ?>">Вперед</a>
+            </li>
+       <?php endif; ?>
       </ul>
+      <?php endif; ?>
     </div>
   </main>
