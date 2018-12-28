@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     }
     if(!count($errors)){
         insertItem(
+             $_SESSION['id'],
              $_POST['category'][0],
              $_POST['lot_name'],
              $_POST['message'],

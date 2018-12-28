@@ -19,9 +19,10 @@
           <p class="lot-item__description"><?=strip_tags($item[0]['discription']); ?></p>
         </div>
         <div class="lot-item__right">
-
-          <?php if(isset($_SESSION['name'])): ?>
-
+          <?php if ( isset($_SESSION['id']) 
+                     && $_SESSION['id']!=$item[0]['id_user']
+                     && strtotime($item[0]['finish_date']) > time()
+                     && !(in_array($_SESSION['id'], $usersWithBet)) ) :?>
           <div class="lot-item__state">
             <div class="lot-item__timer timer">
               <?=$offer_end; ?>

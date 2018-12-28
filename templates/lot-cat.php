@@ -12,7 +12,7 @@
     </section>
     <section class="lots">
         <div class="lots__header">
-            <h2>Открытые лоты</h2>
+            <h2>Все лоты в категории <?=$category_name; ?></h2>
         </div>
         <ul class="lots__list">
            <?php foreach ($items as $key => $value): ?>
@@ -29,7 +29,7 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$value['start_price']; ?></span>
-                            <span class="lot__cost"><?=price_correct($value['final_price']);?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=price_correct($value['start_price']);?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
                             <?=$offer_end ?>
@@ -40,4 +40,24 @@
         <?php endforeach; ?>
         </ul>
     </section>
+    <?php if(isset($pages) && count($pages)>1) :?>
+      <ul class="pagination-list">
+        <?php if($cur_page>1): ?>
+          <li class="pagination-item pagination-item-prev">
+            <a href="?id=<?=$_GET['id']; ?>&page=<?=$cur_page-1 ; ?>">Назад</a>
+          </li>
+        <?php endif; ?>
+        <?php foreach ($pages as $page) : ?>
+            <?php $classname = ($cur_page == $page) ? 'pagination-item-active' : ''; ?>
+            <li class="pagination-item <?=$classname; ?>">
+                <a href="?id=<?=$_GET['id']; ?>&page=<?=$page; ?>"><?=$page; ?></a>
+            </li>
+        <?php endforeach; ?>
+        <?php if($cur_page<count($pages)): ?>
+            <li class="pagination-item pagination-item-next">
+                <a href="?id=<?=$_GET['id']; ?>&page=<?=$cur_page+1 ; ?>">Вперед</a>
+            </li>
+       <?php endif; ?>
+      </ul>
+      <?php endif; ?>
 </main>
