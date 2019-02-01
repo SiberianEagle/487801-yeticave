@@ -49,6 +49,7 @@ $layout_content = include_template('layout.php',
     [
     'content' => $page_content,
     'categories' => $categories,
+
     'title' => $item[0]['title']
     ]);
 
