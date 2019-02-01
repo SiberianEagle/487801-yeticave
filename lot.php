@@ -11,6 +11,7 @@ $user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $item = getCurrentItem($id);
 if (isset($_GET['id']) && $item)
@@ -62,7 +63,5 @@ print($layout_content);
 http_response_code(404);
 
 }
-
-
 
 ?>
