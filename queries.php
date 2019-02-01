@@ -76,8 +76,7 @@
 	    $currentEmail = "SELECT * FROM users WHERE email = '$email'";
         $link = get_connection();
 		$sql_res = mysqli_query($link, $currentEmail);
-	    $count = mysqli_num_rows($sql_res);
-        return $count;
+        return $sql_res;
     }
 
     function insertUser($email, $name, $password, $avatar, $contact_info)

@@ -1,4 +1,9 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+session_start();
+
 require_once 'function.php';
 require_once 'arrays.php';
 require_once 'constants.php';
@@ -8,6 +13,7 @@ $user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $items = getItems();
+
 
 $page_content = include_template( 'index.php',
    ['categories' => $categories,

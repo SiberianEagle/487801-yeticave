@@ -1,10 +1,16 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once 'config/db_connect.php';
+session_start();
 require_once 'function.php';
 require_once 'queries.php';
 require_once 'constants.php';
+
+if(!isset($_SESSION['name']))
+{
+http_response_code(403);
+exit();
+}
 
 $is_auth = rand(0, 1);
 $user_avatar = 'img/user.jpg';
