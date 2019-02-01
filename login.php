@@ -1,25 +1,22 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-session_start();
-require_once 'function.php';
-require_once 'queries.php';
+require_once 'bootLoader.php';
 
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $formValues = [];
 $errors = [];
 if ($_SERVER['REQUEST_METHOD']=='POST'){
+    $email = strValid($_POST['email']);
     foreach ($_POST as $key => $value) {
         $formValues[$key] = $value;
         if (empty($formValues[$key])){
             $errors[$key]=1;
         }  
     }
-    $user = emailCheck($formValues['email']) ? mysqli_fetch_array(emailCheck($formValues['email'])) : null;
+    $user = emailCheckGetUser($email)[0];
     if (!count($errors) && $user)
         {
-         if (password_verify($formValues['password'], $user['password']))
+         if (password_verify($_POST['password'], $user['password']))
          {
           $_SESSION['name'] = $user['name'];
           $_SESSION['avatar'] = $user['avatar'];

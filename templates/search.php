@@ -27,7 +27,7 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=$value['start_price']; ?></span>
-                            <span class="lot__cost"><?=price_correct($value['start_price']);?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=price_correct($value['final_price']);?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
                             <?=$offer_end ?>

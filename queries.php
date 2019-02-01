@@ -115,12 +115,12 @@
         return db_query($last_item);
 	}
 
-    function emailCheck($email) 
+    function emailCheckGetUser($email) 
 	{
 	    $currentEmail = "SELECT * FROM users WHERE email = '$email'";
         $link = get_connection();
 		$sql_res = mysqli_query($link, $currentEmail);
-        return $sql_res;
+        return mysqli_num_rows($sql_res) > 0 ? mysqli_fetch_all($sql_res, MYSQLI_ASSOC) : false;
     }
 
     function insertUser($email, $name, $password, $avatar, $contact_info)
@@ -193,5 +193,20 @@
 		     LIMIT $limit OFFSET $offset";
 		return db_query($foundLots);
 	}
+
+	function strValid($string) 
+    {   
+         $link = get_connection();
+         $string = mysqli_real_escape_string($link, $string);
+         $string = strip_tags($string);
+         return $string;
+    }
+
+    function intValid($string) 
+    {   
+         $string = str_replace(' ', '', $string);
+         $int = intval($string);
+         return $int;
+    }
 
  ?>

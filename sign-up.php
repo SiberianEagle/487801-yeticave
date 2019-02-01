@@ -1,22 +1,24 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-require_once 'function.php';
-require_once 'queries.php';
+require_once 'bootLoader.php';
 
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $formValues = [];
 $errors = [];
 if ($_SERVER['REQUEST_METHOD']=='POST'){
+
+    $email = strValid($_POST['email']);
+    $name = strValid($_POST['name']);
+    $contact_info = strValid($_POST['message']);
+
     foreach ($_POST as $key => $value) {
         $formValues[$key] = $value;
         if (empty($formValues[$key])){
             $errors[$key]=1;
         }  
     }
-    if (!filter_var($formValues['email'], FILTER_VALIDATE_EMAIL)
-        || mysqli_num_rows(emailCheck($formValues['email']))>0)
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)
+        || emailCheckGetUser($email))
         {
             $errors['email']=1;
         }
@@ -34,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     if(!count($errors)){
         $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         insertUser(
-             $_POST['email'],
-             $_POST['name'],
+             $email,
+             $name,
              $passwordHash,
              $file_url,
-             $_POST['contact_info']
+             $contact_info
          );
         header('Location:login.php');
     }

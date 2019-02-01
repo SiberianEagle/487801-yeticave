@@ -1,20 +1,19 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-session_start();
-
-require_once 'function.php';
-require_once 'queries.php';
+require_once 'bootLoader.php';
 
 $categories = getCategories();
 $usersWithBet = [];
 
+$id_lot = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$item = getCurrentItem($id_lot);
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$item = getCurrentItem($id);
-$offer_end = time_to_off($item[0]['finish_date']);
-if (isset($_GET['id']) && $item)
+if (!$id_lot || !$item)
 {
+  http_response_code(404);
+  exit();
+}
+
+$offer_end = time_to_off($item[0]['finish_date']);
 $errors = [];
 if ($_SERVER['REQUEST_METHOD']=='POST'){
     if (!isset($_POST['cost']))
@@ -22,22 +21,20 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
        $errors['cost'] = 1;
     } else 
     {
-       $cost = str_replace(' ', '', $_POST['cost']);
-       if (ctype_digit($cost) && intval($cost) >= intval($item[0]['bet_step'])+intval($item[0]['start_price']))
+       $cost = intValid($_POST['cost']);
+       $sum = intval($item[0]['bet_step']) + intval($item[0]['final_price']);
+       if ($cost && $cost >= $sum)
        {
-        insertBet($_SESSION['id'], $_GET['id'], $_POST['cost']);
-        updatePrice($_GET['id'], $_POST['cost']);
+        insertBet($_SESSION['id'], $id_lot, $cost);
+        updatePrice($id_lot, $cost);
        } else
        {
         $errors['cost'] = 1;
        }
     }
 }
-$bets = getBets($id);
-foreach ($bets as $key) 
-{
-  array_push($usersWithBet, intval($key['bid']));
-}
+$bets = getBets($id_lot);
+$usersWithBet = array_map(function($c){return intval($c['bid']);}, $bets);
 $betsNumber = count($bets);
 
 $page_content = include_template( 'lot.php',
@@ -46,7 +43,7 @@ $page_content = include_template( 'lot.php',
     'item' => $item,
     'offer_end' => $offer_end,
     'errors' => $errors,
-    'id' => $id,
+    'id' => $id_lot,
     'bets' => $bets,
     'betsNumber' => $betsNumber,
     'usersWithBet' => $usersWithBet
@@ -62,11 +59,5 @@ $layout_content = include_template('layout.php',
 
 print($layout_content);
 
-} else
-{
-
-http_response_code(404);
-
-}
 
 ?>

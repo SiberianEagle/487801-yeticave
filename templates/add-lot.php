@@ -29,9 +29,9 @@
         <div class="form__item">
           <label for="category">Категория</label>
           <select id="category" name="category" >
-            <?php $i=1; foreach ($categories as $key => $value): ?>
-              <option>
-                  <?=$i++.' '.$value['title']; ?>   
+            <?php foreach ($categories as $key => $value): ?>
+              <option <?=$value['id']; ?>>
+                  <?=$value['title']; ?>   
               </option>
             <?php endforeach; ?>
           </select>
