@@ -2,11 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 session_start();
+
 require_once 'function.php';
 require_once 'queries.php';
 
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
+
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $item = getCurrentItem($id);
@@ -31,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 }
 $bets = getBets($id);
 $betsNumber = count($bets);
+
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,
@@ -57,7 +60,5 @@ print($layout_content);
 http_response_code(404);
 
 }
-
-
 
 ?>

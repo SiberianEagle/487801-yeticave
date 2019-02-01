@@ -6,6 +6,7 @@ session_start();
 require_once 'function.php';
 require_once 'queries.php';
 
+
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $items = getItems();
