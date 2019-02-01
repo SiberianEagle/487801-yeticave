@@ -30,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     if (!ctype_digit($formValues['lot_step'])){
             $errors['lot_step']=1;
         }
+    if (strtotime($_POST['lot_date'])<time()||strtotime($_POST['lot_date'])>2114380800){
+            $errors['lot_date']=1;
+    }
     if (!($_FILES['userfile']['error'])){
         $file_name = $_FILES['userfile']['name'];
         $file_name = uniqid().'.png';
