@@ -1,18 +1,9 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-session_start();
 require_once 'function.php';
 require_once 'queries.php';
 
-if(!isset($_SESSION['name']))
-{
-http_response_code(403);
-exit();
-}
-
-$is_auth = rand(0, 1);
-$user_avatar = 'img/user.jpg';
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $formValues = [];
@@ -24,16 +15,13 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $errors[$key]=1;
         }  
     }
-    if (!ctype_digit($formValues['lot_rate'])){
-            $errors['lot_rate']=1;
+    if (!filter_var($formValues['email'], FILTER_VALIDATE_EMAIL)
+        || mysqli_num_rows(emailCheck($formValues['email']))>0)
+        {
+            $errors['email']=1;
         }
-    if (!ctype_digit($formValues['lot_step'])){
-            $errors['lot_step']=1;
-        }
-    if (strtotime($_POST['lot_date'])<time()||strtotime($_POST['lot_date'])>2114380800){
-            $errors['lot_date']=1;
-    }
-    if (!($_FILES['userfile']['error'])){
+    if (!($_FILES['userfile']['error'])
+        && mime_content_type($_FILES['userfile']['tmp_name'])=='image/jpeg'){
         $file_name = $_FILES['userfile']['name'];
         $file_name = uniqid().'.png';
         $file_path = __DIR__ . '/img/';
@@ -42,21 +30,20 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     }else{
         $errors['file']=1;
     }
+
     if(!count($errors)){
-        insertItem(
-             $_POST['category'][0],
-             $_POST['lot_name'],
-             $_POST['message'],
+        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        insertUser(
+             $_POST['email'],
+             $_POST['name'],
+             $passwordHash,
              $file_url,
-             $_POST['lot_rate'],
-             $_POST['lot_step'],
-             $_POST['lot_date']
+             $_POST['contact_info']
          );
-        $lot_id = getlLastItem();
-        header('Location:lot.php?id='.$lot_id[0]['id']);
+        header('Location:login.php');
     }
 }
-$page_content = include_template('add-lot.php',
+$page_content = include_template('sign-up.php',
     [
     'categories' => $categories,
     'formValues' => $formValues,
@@ -67,7 +54,7 @@ $layout_content = include_template('layout.php',
     [
     'content' => $page_content,
     'categories' => $categories,
-    'title' => 'Добавление лота'
+    'title' => 'Регистрация'
     ]);
 
 print($layout_content);

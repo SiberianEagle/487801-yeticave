@@ -36,4 +36,12 @@ function time_to_off($off)
     return $time_off;
 }
 
+function pagesCounter($foundLots, $page_lots)
+{
+    $foundLotsCount = count($foundLots);
+    $page_count = ceil($foundLotsCount / $page_lots);
+    $pages = $page_count>0 ? range(1, $page_count) : null;
+    return $pages;
+}
+
 ?>

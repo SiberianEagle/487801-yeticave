@@ -22,12 +22,12 @@ CREATE TABLE lots (
     id_winner INT,
     id_category INT,
     title CHAR(255) NOT NULL,
-    discription TEXT,
+    discription TEXT ,
     picture CHAR(128) NOT NULL,
     start_price INT NOT NULL,
     final_price INT NOT NULL,
     finish_date TIMESTAMP NOT NULL,
-    bet_step INT
+    bet_step INT DEFAULT 1
 )
 
 CREATE TABLE bets (
@@ -42,3 +42,5 @@ CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title CHAR(128) NOT NULL
 )
+
+CREATE FULLTEXT INDEX fastSearch ON lots(title, discription)

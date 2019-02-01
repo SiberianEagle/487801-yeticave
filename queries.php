@@ -70,5 +70,70 @@
         $last_item = "SELECT id FROM lots ORDER BY id DESC LIMIT 1";
         return db_query($last_item);
 	}
-  
+
+    function emailCheck($email) 
+	{
+	    $currentEmail = "SELECT * FROM users WHERE email = '$email'";
+        $link = get_connection();
+		$sql_res = mysqli_query($link, $currentEmail);
+        return $sql_res;
+    }
+
+    function insertUser($email, $name, $password, $avatar, $contact_info)
+	{
+		$insert_item = "INSERT INTO `users`
+       (email,name,password,avatar,contact_info)
+        VALUES (
+        '$email',
+        '$name',
+        '$password',
+        '$avatar',
+        '$contact_info'
+        )";
+		return db_insert($insert_item);
+	}
+
+	function insertBet($id_user, $id_lot, $sum)
+	{
+		$insert_bet = "INSERT INTO `bets`
+       (id_user,id_lot,sum)
+        VALUES (
+        '$id_user',
+        '$id_lot',
+        '$sum'
+        )";
+		return db_insert($insert_bet);
+	}
+
+	function getBets($id_lot)
+	{
+       $bets = "SELECT users.name AS name, date, sum FROM `bets` 
+       INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 10";
+        return db_query($bets);
+	}
+
+	function sqlSequre($value) 
+	{
+		$link = get_connection();
+		$result = mysqli_real_escape_string($link, $value);
+		return $result;
+	}
+
+	function getFoundLots($string)
+	{
+		$foundLots = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` 
+		     INNER JOIN `categories` ON lots.id_category = categories.id
+		     WHERE MATCH(lots.title, lots.discription) AGAINST ('$string')";
+		return db_query($foundLots);
+	}
+
+	function getFoundLotsOnPage($string, $limit, $offset)
+	{
+		$foundLots = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` 
+		     INNER JOIN `categories` ON lots.id_category = categories.id
+		     WHERE MATCH(lots.title, lots.discription) AGAINST ('$string')
+		     LIMIT $limit OFFSET $offset";
+		return db_query($foundLots);
+	}
+
  ?>
