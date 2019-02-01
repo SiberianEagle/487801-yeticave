@@ -27,7 +27,7 @@ CREATE TABLE lots (
     start_price INT NOT NULL,
     final_price INT NOT NULL,
     finish_date TIMESTAMP NOT NULL,
-    bet_step INT
+    bet_step INT DEFAULT 1
 )
 
 CREATE TABLE bets (
