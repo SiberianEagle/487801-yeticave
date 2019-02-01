@@ -5,12 +5,12 @@ session_start();
 require_once 'function.php';
 require_once 'queries.php';
 
-$offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();
 $usersWithBet = [];
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $item = getCurrentItem($id);
+$offer_end = time_to_off($item[0]['finish_date']);
 if (isset($_GET['id']) && $item)
 {
 $errors = [];

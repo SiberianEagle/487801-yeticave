@@ -3,7 +3,7 @@
       <ul class="nav__list container">
             <?php foreach ($categories as $key => $value): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"><?=strip_tags($value['title']); ?></a>
+                <a href="lot-cat.php?id=<?=$value['id']; ?>"><?=strip_tags($value['title']); ?></a>
             </li>
         <?php endforeach; ?>
         </ul>

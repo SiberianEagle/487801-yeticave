@@ -77,6 +77,20 @@
 		return db_query($current_item);
 	}
 
+	function getClosedItems()
+	{   
+		$time = time();
+		$closed_items = "SELECT id FROM `lots`
+		    WHERE UNIX_TIMESTAMP(finish_date) <= $time";
+       return db_query($closed_items);
+	}
+
+    function setItemWinner($id_lot, $id_user)
+    {
+        $updateWinner = "UPDATE `lots` SET `id_winner` = '$id_user' WHERE `lots`.`id` = $id_lot";
+        return db_update($updateWinner);
+    } 
+	
 	function insertItem($id_user, $id_category, $title, $discription, $picture, $start_price, $bet_step, $finish_date)
 	{
 		$insert_item = "INSERT INTO `lots`
@@ -148,6 +162,13 @@
        INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 10";
         return db_query($bets);
 	}
+
+	function getClosedItemBet($id_lot)
+    {
+    	$lastBet = "SELECT users.name AS name, users.email AS email,  bets.id_user AS bid, sum FROM `bets` 
+       INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 1";
+       return db_query($lastBet);
+    }
 
 	function sqlSequre($value) 
 	{
