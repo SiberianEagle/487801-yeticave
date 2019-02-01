@@ -16,6 +16,7 @@
             <img src="<?=$item[0]['picture']; ?>" width="730" height="548" alt="Сноуборд">
           </div>
           <p class="lot-item__category">Категория: <span><?=$item[0]['ctitle']; ?></span></p>
+
           <p class="lot-item__description"><?=strip_tags($item[0]['discription']); ?></p>
         </div>
         <div class="lot-item__right">
@@ -36,6 +37,7 @@
                 Мин. ставка <span><?=$item[0]['bet_step']; ?></span>
               </div>
             </div>
+
             <?php
             $classname = isset($errors['cost']) ? 'form__item--invalid' : '';
             ?>
