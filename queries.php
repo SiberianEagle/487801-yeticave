@@ -26,9 +26,22 @@
 		return $sql_res;
 	}
 
+	function db_update($sql)
+	{
+        $link = get_connection();
+		$sql_res = mysqli_query($link, $sql);
+		return $sql_res;
+	}
+
     function getCategories()
     {
     	$categories = "SELECT * FROM categories";
+    	return db_query($categories);
+    }
+
+    function getCurrentCategory($id)
+    {
+    	$categories = "SELECT `title` FROM categories WHERE id = $id";
     	return db_query($categories);
     }
 
@@ -37,22 +50,53 @@
 		$all_items = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` INNER JOIN `categories` ON lots.id_category = categories.id ";
 		return db_query($all_items);
 	}
+
+	function getItemsOfCategory($id)
+	{
+		$cat_items = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` INNER JOIN `categories` ON lots.id_category = categories.id 
+		    WHERE categories.id = $id
+		    ORDER BY lots.id DESC";
+		return db_query($cat_items);
+	}
+
+	function getItemsOfCategoryOnPage($id, $limit, $offset)
+	{
+		$cat_items = "SELECT lots.id AS id, lots.title, start_price, picture, final_price, categories.title AS ctitle FROM `lots` INNER JOIN `categories` ON lots.id_category = categories.id 
+		    WHERE categories.id = $id
+		    ORDER BY lots.id DESC
+		    LIMIT $limit OFFSET $offset";
+		return db_query($cat_items);
+	}
     
     function getCurrentItem($id)
 	{
-		$current_item = "SELECT lots.title, discription, start_price, picture, final_price, bet_step, categories.title AS ctitle
+		$current_item = "SELECT lots.title, id_user, discription, start_price, picture, final_price, finish_date, bet_step, categories.title AS ctitle
             FROM `lots`
             INNER JOIN `categories` ON lots.id_category = categories.id 
             WHERE lots.id = $id";
 		return db_query($current_item);
 	}
 
-	function insertItem($id_category, $title, $discription, $picture, $start_price, $bet_step, $finish_date)
+	function getClosedItems()
+	{   
+		$time = time();
+		$closed_items = "SELECT id FROM `lots`
+		    WHERE UNIX_TIMESTAMP(finish_date) <= $time";
+       return db_query($closed_items);
+	}
+
+    function setItemWinner($id_lot, $id_user)
+    {
+        $updateWinner = "UPDATE `lots` SET `id_winner` = '$id_user' WHERE `lots`.`id` = $id_lot";
+        return db_update($updateWinner);
+    } 
+	
+	function insertItem($id_user, $id_category, $title, $discription, $picture, $start_price, $bet_step, $finish_date)
 	{
 		$insert_item = "INSERT INTO `lots`
        (id_user,id_category,title,discription,picture,start_price,bet_step,finish_date,final_price)
         VALUES (
-        '12',
+        '$id_user',
         '$id_category',
         '$title',
         '$discription',
@@ -105,12 +149,26 @@
 		return db_insert($insert_bet);
 	}
 
+	function updatePrice($id_lot, $sum)
+	{
+		$update_price = "UPDATE `lots` SET final_price = $sum WHERE id = $id_lot";
+		return db_insert($update_price);
+	}
+
+    
 	function getBets($id_lot)
 	{
-       $bets = "SELECT users.name AS name, date, sum FROM `bets` 
+       $bets = "SELECT users.name AS name, bets.id_user AS bid, date, sum FROM `bets` 
        INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 10";
         return db_query($bets);
 	}
+
+	function getClosedItemBet($id_lot)
+    {
+    	$lastBet = "SELECT users.name AS name, users.email AS email,  bets.id_user AS bid, sum FROM `bets` 
+       INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 1";
+       return db_query($lastBet);
+    }
 
 	function sqlSequre($value) 
 	{
