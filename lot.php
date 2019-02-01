@@ -14,7 +14,7 @@ if (isset($_GET['id']))
 {
 $id = intval($_GET['id']);
 $item = getCurrentItem($id);
-
+  
 $page_content = include_template( 'lot.php',
     [
     'categories' => $categories,
