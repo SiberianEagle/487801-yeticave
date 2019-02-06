@@ -80,8 +80,8 @@
 	function getClosedItems()
 	{   
 		$time = time();
-		$closed_items = "SELECT id FROM `lots`
-		    WHERE UNIX_TIMESTAMP(finish_date) <= $time";
+		$closed_items = "SELECT id, title FROM `lots`
+		    WHERE UNIX_TIMESTAMP(finish_date) <= $time AND id_winner = NULL";
        return db_query($closed_items);
 	}
 
@@ -162,6 +162,16 @@
        INNER JOIN `users` ON bets.id_user = users.id WHERE bets.id_lot = $id_lot ORDER BY bets.id DESC LIMIT 10";
         return db_query($bets);
 	}
+	function getMyBets($id_user)
+	{
+       $bets = "SELECT bets.id_lot AS bid, date, sum, lots.title AS lotTitle, lots.id_winner AS idOfWinner, users.email AS contact
+       FROM `bets` 
+       INNER JOIN `lots` ON bets.id_lot = lots.id  
+       INNER JOIN `users` ON lots.id_user = users.id
+       WHERE bets.id_user = $id_user
+       ORDER BY bets.id DESC";
+        return db_query($bets);
+	}
 
 	function getClosedItemBet($id_lot)
     {
@@ -207,6 +217,14 @@
          $string = str_replace(' ', '', $string);
          $int = intval($string);
          return $int;
+    }
+
+    function category_check($id)
+    {
+    	$currentCategory = "SELECT * FROM lots WHERE id = '$id'";
+        $link = get_connection();
+		$sql_res = mysqli_query($link, $currentCategory);
+        return mysqli_num_rows($sql_res) > 0 ? true : false;
     }
 
  ?>

@@ -26,13 +26,16 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $errors[$key]=1;
         }  
     }
+    if (!category_check($category_id)){
+        $errors['category']=1;
+    }
     if (!$lot_rate){
             $errors['lot_rate']=1;
         }
     if (!$lot_step){
             $errors['lot_step']=1;
         }
-    if ($lot_date < time() || $lot_date  > 2114380800){
+    if (time($lot_date) < time() || time($lot_date)  > 2114380800){
             $errors['lot_date']=1;
     }
     if (!($_FILES['userfile']['error'])){

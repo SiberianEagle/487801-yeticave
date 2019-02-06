@@ -1,0 +1,8 @@
+{
+    "name": "vendor/yeti",
+    "description": "учебный проект",
+    "type": "project",
+    "require": {
+        "swiftmailer/swiftmailer": "^6.1"
+    }
+}

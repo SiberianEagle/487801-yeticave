@@ -26,16 +26,19 @@
           value="<?=$val; ?>">
           <span class="form__error">Введите наименование лота</span>
         </div>
-        <div class="form__item">
+        <?php
+        $classname = isset($errors['category']) ? 'form__item--invalid' : '';
+        ?>
+        <div class="form__item  <?=$classname; ?>">
           <label for="category">Категория</label>
           <select id="category" name="category" >
             <?php foreach ($categories as $key => $value): ?>
-              <option <?=$value['id']; ?>>
+              <option value="<?=$value['id']; ?>">
                   <?=$value['title']; ?>   
               </option>
             <?php endforeach; ?>
           </select>
-          <span class="form__error">Выберите категорию</span>
+          <span class="form__error">Ошибка категрии</span>
         </div>
       </div>
        <?php 
@@ -69,7 +72,7 @@
       <?php
       $classname = isset($errors['lot_rate']) ? 'form__item--invalid' : '';
       $val = isset($formValues['lot_rate']) ? $formValues['lot_rate'] : '';
-        ?>
+      ?>
       <div class="form__container-three">
         <div class="form__item form__item--small <?=$classname; ?>">
           <label for="lot-rate">Начальная цена</label>

@@ -1,6 +1,6 @@
 <?php
 require_once 'bootLoader.php';
-
+require_once 'getWinner.php';
 
 $offer_end = time_to_off("tomorrow midnight");
 $categories = getCategories();

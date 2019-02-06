@@ -12,7 +12,7 @@
 <header class="main-header">
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
-        <a class="main-header__logo">
+        <a href="index.php" class="main-header__logo">
             <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <?php $searchValue = $search ?? ''; ?>
@@ -33,6 +33,9 @@
           </div> 
           <div>
            <a href="logout.php" class="user-menu__logged" style="color:red; position:relative; top:25px; right:47px">Выход</a>
+          </div>
+          <div style="width:100px; margin-left:-100px;">
+           <a href="myBets.php" class="user-menu__logged" style="color:green; position:relative; top:50px;">мои ставки</a>
           </div>
         <?php else: ?>
           <ul class="user-menu__list">
